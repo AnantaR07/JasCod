@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JasCod - Jasa Coding Profesional</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Rubik", "Poppins", sans-serif;
+        background-color: #0c1017;
+        color: #eaecef;
+        line-height: 1.75;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 50px;
+        background-color: #161b22;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        transition: box-shadow 0.3s ease;
+      }
+      header.scrolled {
+        box-shadow: 0 4px 20px rgba(31, 142, 241, 0.6);
+        background-color: #19212b;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+      .logo img {
+        height: 50px;
+        margin-right: 10px;
+        transition: transform 0.3s ease;
+      }
+      .logo:hover img {
+        transform: rotate(10deg) scale(1.05);
+      }
+      .logo-text {
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        user-select: none;
+      }
+      .logo-text span:nth-child(1) {
+        color: #1f8ef1;
+      }
+      .logo-text span:nth-child(2) {
+        color: #fc5c65;
+      }
+
+      nav a {
+        color: #c9d1d9;
+        text-decoration: none;
+        margin-left: 30px;
+        font-weight: 600;
+        position: relative;
+        transition: color 0.3s ease;
+      }
+      nav a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0%;
+        height: 2px;
+        background: #1f8ef1;
+        transition: width 0.3s ease;
+        border-radius: 2px;
+      }
+      nav a:hover {
+        color: #1f8ef1;
+      }
+      nav a:hover::after {
+        width: 100%;
+      }
+
+      /* Hero: layout grid dua kolom */
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 40px;
+        background: linear-gradient(120deg, #1f8ef1, #fc5c65);
+        color: white;
+        padding: 80px 50px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero h1 {
+        font-size: 48px;
+        animation: slideInFromLeft 1s ease forwards;
+        opacity: 0;
+      }
+      .hero p {
+        font-size: 20px;
+        margin: 20px 0 40px;
+        animation: slideInFromRight 1s ease forwards 0.3s;
+        opacity: 0;
+        max-width: 90%;
+      }
+      .hero button {
+        background: linear-gradient(135deg, #1f8ef1, #5c7cfa);
+        border-radius: 24px;
+        transition: all 0.3s ease;
+      }
+      .hero button:hover {
+        transform: scale(1.03);
+        background: linear-gradient(135deg, #5c7cfa, #1f8ef1);
+        color: #fff;
+      }
+
+      /* Tambah gambar di hero sebelah kanan */
+      .hero-image {
+        width: 100%;
+        max-width: 450px;
+        justify-self: center;
+        animation: fadeInUp 1s ease forwards 0.8s;
+        opacity: 0;
+      }
+      .hero-image img {
+        width: 100%;
+        border-radius: 24px;
+        box-shadow: 0 15px 30px rgba(31, 142, 241, 0.4);
+        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+      }
+
+      /* Section umum */
+      section {
+        padding: 80px 20px;
+        text-align: center;
+      }
+
+      h2 {
+        font-size: 34px;
+        color: #58a6ff;
+        font-weight: 700;
+        text-transform: none;
+        margin-bottom: 30px;
+      }
+
+      /* Asymmetric grid untuk layanan dan proyek */
+      .service-items,
+      .project-items {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      /* Asymmetric card effect: every even card shifted down */
+      .service-items > div:nth-child(even),
+      .project-items > div:nth-child(odd) {
+        transform: translateY(30px);
+        transition: transform 0.4s ease;
+      }
+      .service-items > div:hover,
+      .project-items > div:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 20px 40px rgba(31, 142, 241, 0.6);
+        z-index: 10;
+      }
+
+      .card {
+        background-color: #111621;
+        padding: 28px 24px;
+        border-radius: 24px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 30px rgba(31, 142, 241, 0.3);
+      }
+
+      .card h3 {
+        color: #fc5c65;
+        margin-bottom: 15px;
+        font-weight: 700;
+        font-size: 22px;
+      }
+      .card p {
+        font-size: 16px;
+        color: #bbb;
+        line-height: 1.5;
+      }
+
+      /* Contact Section */
+      .contact {
+        background-color: #161b22;
+        border-top: 3px solid #fc5c65;
+        padding-bottom: 100px;
+      }
+      .wa-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        background: linear-gradient(45deg, #25d366, #128c7e);
+        color: white;
+        border: none;
+        padding: 16px 40px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 60px;
+        cursor: pointer;
+        box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        user-select: none;
+      }
+      .wa-button:hover {
+        transform: translateY(-6px) scale(1.08);
+        box-shadow: 0 18px 45px rgba(37, 211, 102, 0.85);
+      }
+      .wa-icon {
+        width: 28px;
+        height: 28px;
+        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+      }
+
+      .git-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        background: linear-gradient(45deg, #333, #000);
+        color: white;
+        border: none;
+        padding: 16px 40px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 60px;
+        cursor: pointer;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        user-select: none;
+        margin-left: 2%;
+      }
+
+      .git-button:hover {
+        transform: translateY(-6px) scale(1.08);
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.85);
+      }
+
+      .git-icon {
+        width: 28px;
+        height: 28px;
+        filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.1));
+      }
+      .ig-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        background: linear-gradient(45deg, #feda75, #d62976, #962fbf, #4f5bd5);
+        color: white;
+        border: none;
+        padding: 16px 40px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 60px;
+        cursor: pointer;
+        box-shadow: 0 12px 30px rgba(214, 41, 118, 0.5);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        user-select: none;
+        margin-left: 2%;
+      }
+
+      .ig-button:hover {
+        transform: translateY(-6px) scale(1.08);
+        box-shadow: 0 18px 45px rgba(214, 41, 118, 0.7);
+      }
+
+      .ig-icon {
+        width: 28px;
+        height: 28px;
+        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+      }
+
+      #projects {
+        padding: 20px;
+      }
+
+      .project-items {
+        display: flex;
+        overflow-x: auto;
+        gap: 20px;
+        padding-bottom: 10px;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        border: 1px solid #555; /* biar keliatan batas */
+        max-width: 100vw;
+      }
+
+      /* sembunyikan scrollbar */
+      .project-items::-webkit-scrollbar {
+        display: none;
+      }
+      .project-items {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .project-items .card {
+        flex: 0 0 280px;
+        display: flex;
+        flex-direction: column;
+        background-color: #0d1117;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(31, 142, 241, 0.15);
+        padding: 20px;
+        color: #ddd;
+        user-select: none;
+      }
+
+      .project-items .card img {
+        width: 100%;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        object-fit: cover;
+        height: 160px;
+      }
+
+      .project-items .card h3 {
+        margin-bottom: 10px;
+        color: #fc5c65;
+        font-weight: 700;
+        font-size: 20px;
+      }
+
+      .project-items .card p {
+        font-size: 15px;
+        color: #bbb;
+        line-height: 1.4;
+        flex-grow: 1;
+      }
+      .buttonselengkapnya {
+        background-color: #1cb5e0;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .buttonselengkapnya:hover {
+        background-color: #159fc8;
+        transform: scale(1.05);
+      }
+
+      .buttonselengkapnya:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      /* Loader bulat */
+      .loader {
+        width: 16px;
+        height: 16px;
+        border: 2px solid white;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      footer {
+        text-align: center;
+        padding: 30px;
+        font-size: 14px;
+        color: #888;
+        background-color: #0d1117;
+        border-top: 1px solid #1f8ef1;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 60px 30px;
+        }
+        .hero-image {
+          max-width: 300px;
+          margin: 0 auto;
+          margin-top: 40px;
+        }
+        header {
+          padding: 15px 20px;
+        }
+        nav a {
+          margin-left: 15px;
+        }
+      }
+      @media (max-width: 600px) {
+        header {
+          flex-direction: column;
+          gap: 15px;
+          padding: 15px 20px;
+        }
+        nav a {
+          margin-left: 10px;
+          font-size: 14px;
+        }
+      }
+
+      /* Animations */
+      @keyframes slideInFromLeft {
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        from {
+          opacity: 0;
+          transform: translateX(-40px);
+        }
+      }
+      @keyframes slideInFromRight {
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        from {
+          opacity: 0;
+          transform: translateX(40px);
+        }
+      }
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+      }
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header id="header">
+      <div class="logo" tabindex="0" aria-label="Logo JasCod">
+        <div class="logo-text"><span>Jas</span><span>Cod</span></div>
+      </div>
+      <nav>
+        <a href="#home" tabindex="0">Home</a>
+        <a href="#services" tabindex="0">Layanan</a>
+        <a href="#projects" tabindex="0">Hasil</a>
+        <a href="#contact" tabindex="0">Kontak</a>
+      </nav>
+    </header>
+
+    <main>
+      <section
+        id="home"
+        class="hero"
+        role="banner"
+        aria-label="JasCod hero section"
+      >
+        <div>
+          <h1>JasCod - Jasa Coding Profesional</h1>
+          <p>
+            Solusi lengkap untuk semua kebutuhan pemrograman dan pengembangan
+            aplikasi kamu. Profesional, cepat, dan terpercaya.
+          </p>
+          <button
+            id="hubungiBtn"
+            onclick="loadingRedirect()"
+            aria-label="Hubungi Kami via WhatsApp"
+            class="buttonselengkapnya"
+          >
+            <span id="btnText">Hubungi Kami</span>
+            <span id="btnLoader" class="loader" style="display: none"></span>
+          </button>
+        </div>
+        <div class="hero-image" aria-hidden="true">
+          <img src="./img/Background.png" alt="Coding illustration" />
+        </div>
+      </section>
+
+      <section id="services" aria-label="Layanan JasCod">
+        <h2>Layanan Kami</h2>
+        <div class="service-items">
+          <div class="card" tabindex="0">
+            <h3>Website Developer</h3>
+            <p>
+              Membangun website modern responsif dengan teknologi terbaru yang
+              cocok untuk bisnis dan personal.
+            </p>
+          </div>
+          <div class="card" tabindex="0">
+            <h3>Android Developer</h3>
+            <p>
+              Mengembangkan aplikasi Android native dan cross-platform dengan
+              pengalaman pengguna terbaik.
+            </p>
+          </div>
+          <div class="card" tabindex="0">
+            <h3>Internet of Things Developer</h3>
+            <p>
+              Mengembangkan sistem Internet of Things (IoT) untuk memantau dan
+              mengontrol perangkat secara real-time dengan integrasi sensor dan
+              jaringan.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <h2>Proyek Kami</h2>
+        <!-- Ini container untuk menampung card -->
+        <div class="project-items" id="projectContainer"></div>
+
+        <!-- Script di bawah, setelah elemen HTML-nya muncul -->
+        <script>
+          const projects = [
+            {
+              img: "./img/DashboardProjek/DashbaordRSUDTrenggalek.png",
+              title: "Website Monitoring Kualitas Udara RSUD Trenggalek",
+              desc: "Sistem berbasis IoT untuk memantau PM2.5, CO, VOC, suhu, dan kelembaban secara real-time berbasis telegram bot.",
+              link: "https://github.com/AnantaR07/AnantaR07-Pemantauan-Udara-Rumah-Sakit-Dr.Soedarmo-Trenggalek",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardArtosite.png",
+              title: "Website Artosite",
+              desc: "Website jual beli lukisan yang mempertemukan seniman dengan pecinta seni.",
+              link: "https://github.com/AnantaR07/ArtositeRebuild",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardBatamTour.png",
+              title: "Website Batam Tour",
+              desc: "Website layanan wisata yang menyediakan paket perjalanan lengkap di wilayah Batam dan sekitarnya.",
+              link: "https://github.com/AnantaR07/batamtour",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardCarwash.png",
+              title: "Website Carwash",
+              desc: "Website pencarian lokasi tempat cuci mobil terdekat yang memudahkan pengguna menemukan layanan carwash di sekitar mereka.",
+              link: "https://github.com/AnantaR07/CarWash",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardCraftyArtisan.png",
+              title: "Website Craftyartisan",
+              desc: "Website jual beli karya seni dan kerajinan dari barang bekas yang mengusung konsep ramah lingkungan dan kreativitas.",
+              link: "https://github.com/AnantaR07/Macro-CreaftyArtisan",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardJasaDesain.png",
+              title: "Website JasaDesain",
+              desc: "Website penyedia jasa desain logo, poster, kemasan produk, banner, konten media sosial, hingga desain interior dan arsitektur.",
+              link: "https://github.com/AnantaR07/Webdesign",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardKecamatanBintanTimur.png",
+              title: "Website Kecamatan Bintan Timur",
+              desc: "Website yang dirancang untuk menyampaikan informasi pemerintahan, pelayanan publik, dan pendataan wilayah secara transparan dan mudah diakses oleh masyarakat.",
+              link: "https://github.com/AnantaR07/websitekecamatanbintantimur",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardLeleFeeder.png",
+              title: "Website Lelefeeder",
+              desc: "Website inovatif untuk para peternak lele yang ingin memonitor dan mengatur lokasi kolam serta proses pemberian pakan secara otomatis berdasarkan input pengguna.",
+              link: "https://github.com/AnantaR07/LeleFeeder",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardLockSense.png",
+              title: "Website LockSense",
+              desc: "Website yang menghubungkan sistem kunci pintar berbasis IoT untuk mengamankan pintu kamar menggunakan teknologi kriptografi RSA.",
+              link: "https://github.com/AnantaR07/LockSense",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardPeminjamanBarangBTIKP-KEPR.png",
+              title: "Website Peminjaman Barang BTIKP-KEPR",
+              desc: "Website Peminjaman Barang BTIKP-KEPRI adalah sistem berbasis web yang dirancang untuk mengelola proses peminjaman dan pengembalian barang di lingkungan Balai Teknologi Informasi dan Komunikasi Pendidikan Provinsi Kepulauan Riau (BTIKP-KEPRI).",
+              link: "https://github.com/AnantaR07/Sistem-Peminjaman-Barang-BTIKP-KEPR",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardPendataanPenduduk.png",
+              title: "Website Pendataan Penduduk Kecil",
+              desc: "Website ini dirancang sebagai sistem pendataan sederhana untuk mencatat informasi dasar penduduk di lingkungan kecil seperti RT, RW, dusun, atau desa.",
+              link: "https://github.com/AnantaR07/CRUDdatadesa",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardPerpustakaan.png",
+              title: "Website Perpustakaan Online",
+              desc: "Website ini berfungsi sebagai sistem manajemen peminjaman dan pengembalian buku untuk perpustakaan sekolah, kampus, atau umum. Didesain agar mudah digunakan oleh admin dan pengguna (siswa/anggota).",
+              link: "https://github.com/AnantaR07/Perpustakaan",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardQnine.png",
+              title: "Website Q-Nine",
+              desc: "Website digital untuk jual beli makanan dan minuman secara online. Website ini menghadirkan beragam pilihan kuliner dari berbagai mitra UMKM, restoran, dan produsen lokal.",
+              link: "https://github.com/AnantaR07/QNine",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardSecureSense.png",
+              title: "Website SecureSense",
+              desc: "website pemantauan suhu dan kelembaban berbasis IoT yang dirancang khusus untuk gudang penyimpanan secara real-time dan memberikan notifikasi otomatis saat nilai melebihi ambang batas aman.",
+              link: "https://github.com/AnantaR07/SecureSense",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardTanamanMawar.png",
+              title: "Website IoT Tanaman Mawar",
+              desc: "Website berbasis IoT yang dirancang untuk menyiram tanaman mawar secara otomatis dan memantau kelembaban tanah secara real-time dengan lebih dari satu tanaman mawar.",
+              link: "https://github.com/AnantaR07/KelembabanMawar",
+            },
+            {
+              img: "./img/DashboardProjek/DashboardTanamanTomanStroberi.png",
+              title: "Website IoT Tanaman Tomat & Stroberi",
+              desc: "Website ini digunakan untuk mengelola dua jenis tanaman berbeda (tomat dan stroberi) dengan pendekatan IoT berbasis pemantauan kelembaban tanah dan penyiraman otomatis, namun masing-masing memiliki penyesuaian tersendiri sesuai kebutuhan air tiap tanaman.",
+              link: "https://github.com/AnantaR07/KelembabanTomatStrobery",
+            },
+          ];
+
+          const container = document.getElementById("projectContainer");
+
+          projects.forEach((p) => {
+            container.innerHTML += `
+      <div class="card">
+        <img src="${p.img}" alt="${p.title}" />
+        <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+                <a href="${p.link}" target="_blank" style="color: #007bff; text-decoration: none; font-weight: bold;">
+          Lihat di GitHub →
+        </a>
+      </div>
+    `;
+          });
+        </script>
+      </section>
+
+      <section id="contact" class="contact" aria-label="Kontak Kami">
+        <h2>Hubungi Kami</h2>
+
+        <!-- Tombol WhatsApp -->
+        <button
+          class="wa-button"
+          onclick="window.open('https://wa.me/6287750704842?text=Halo%20JasCod!', '_blank')"
+          aria-label="Hubungi via WhatsApp"
+        >
+          <img
+            class="wa-icon"
+            src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+            alt="Ikon WhatsApp"
+          />
+          Chat WhatsApp
+        </button>
+
+        <!-- Tombol Instagram -->
+        <button
+          class="ig-button"
+          onclick="window.open('https://www.instagram.com/nan.yattaaaa', '_blank')"
+          aria-label="Kunjungi Instagram"
+        >
+          <img
+            class="ig-icon"
+            src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+            alt="Ikon Instagram"
+          />
+          Kunjungi Instagram
+        </button>
+
+        <button
+          class="git-button"
+          onclick="window.open('https://github.com/AnantaR07', '_blank')"
+          aria-label="Lihat Proyek di GitHub"
+        >
+          <img
+            class="git-icon"
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+            alt="Ikon GitHub"
+          />
+          Lihat GitHub
+        </button>
+      </section>
+    </main>
+
+    <footer>&copy; 2025 JasCod. All rights reserved.</footer>
+
+    <script>
+      // Header shadow on scroll
+      const header = document.getElementById("header");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 20) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      });
+
+      const slider = document.querySelector(".project-items");
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+
+      slider.addEventListener("mousedown", (e) => {
+        isDown = true;
+        slider.classList.add("active");
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+      });
+      slider.addEventListener("mouseleave", () => {
+        isDown = false;
+        slider.classList.remove("active");
+      });
+      slider.addEventListener("mouseup", () => {
+        isDown = false;
+        slider.classList.remove("active");
+      });
+      slider.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2; // scroll-fastness
+        slider.scrollLeft = scrollLeft - walk;
+      });
+
+      function loadingRedirect() {
+        const btn = document.getElementById("hubungiBtn");
+        const btnText = document.getElementById("btnText");
+        const btnLoader = document.getElementById("btnLoader");
+
+        btnText.style.display = "none";
+        btnLoader.style.display = "inline-block";
+        btn.disabled = true;
+
+        setTimeout(() => {
+          location.href = "#contact";
+        }, 800);
+      }
+    </script>
+  </body>
+</html>
