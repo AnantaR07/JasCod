@@ -95,54 +95,124 @@
         width: 100%;
       }
 
-      /* Hero: layout grid dua kolom */
       .hero {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        display: flex;
         align-items: center;
+        justify-content: space-between;
+        padding: 60px 40px;
         gap: 40px;
-        background: linear-gradient(120deg, #1f8ef1, #fc5c65);
+        flex-wrap: wrap;
+        background: linear-gradient(135deg, #58a6ff, #fc5c65);
         color: white;
-        padding: 80px 50px;
-        position: relative;
-        overflow: hidden;
-      }
-      .hero h1 {
-        font-size: 48px;
-        animation: slideInFromLeft 1s ease forwards;
-        opacity: 0;
-      }
-      .hero p {
-        font-size: 20px;
-        margin: 20px 0 40px;
-        animation: slideInFromRight 1s ease forwards 0.3s;
-        opacity: 0;
-        max-width: 90%;
-      }
-      .hero button {
-        background: linear-gradient(135deg, #1f8ef1, #5c7cfa);
-        border-radius: 24px;
-        transition: all 0.3s ease;
-      }
-      .hero button:hover {
-        transform: scale(1.03);
-        background: linear-gradient(135deg, #5c7cfa, #1f8ef1);
-        color: #fff;
+        border-bottom: 4px solid #fc5c65;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        border-radius: 0 0 20px 20px;
       }
 
-      /* Tambah gambar di hero sebelah kanan */
-      .hero-image {
-        width: 100%;
-        max-width: 450px;
-        justify-self: center;
-        animation: fadeInUp 1s ease forwards 0.8s;
-        opacity: 0;
+      .hero > div {
+        flex: 1;
+        min-width: 300px;
       }
+
+      .hero h1 {
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .hero p {
+        font-size: 1.15rem;
+        margin-bottom: 30px;
+        line-height: 1.8;
+        font-family: "Rubik", sans-serif;
+        color: #e0e0e0;
+      }
+
+      .hero-image {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
       .hero-image img {
         width: 100%;
-        border-radius: 24px;
-        box-shadow: 0 15px 30px rgba(31, 142, 241, 0.4);
-        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+        max-width: 450px;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .hero-image img:hover {
+        transform: scale(1.03);
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+      }
+
+      .buttonselengkapnya {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 14px 32px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        border: 2px solid transparent;
+        background: white;
+        color: #1f2f41;
+        cursor: pointer;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+        transition: all 0.35s ease;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .buttonselengkapnya::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 200%;
+        height: 100%;
+        background: linear-gradient(120deg, #58a6ff, #fc5c65, #58a6ff);
+        transition: all 0.45s ease;
+        z-index: 0;
+        opacity: 0;
+      }
+
+      .buttonselengkapnya:hover::before {
+        left: 0;
+        opacity: 1;
+      }
+
+      .buttonselengkapnya:hover {
+        color: white;
+        border: 2px solid transparent;
+        box-shadow: 0 8px 24px rgba(252, 92, 101, 0.5);
+      }
+
+      .buttonselengkapnya > span {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Loader styling jika ingin dibuat lebih baik */
+      .loader {
+        width: 18px;
+        height: 18px;
+        border: 3px solid white;
+        border-top: 3px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
       }
 
       /* Section umum */
@@ -210,6 +280,13 @@
         background-color: #161b22;
         border-top: 3px solid #fc5c65;
         padding-bottom: 100px;
+      }
+      .contact-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+        padding: 20px;
       }
       .wa-button {
         display: inline-flex;
@@ -351,24 +428,6 @@
         line-height: 1.4;
         flex-grow: 1;
       }
-      .buttonselengkapnya {
-        background-color: #1cb5e0;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        font-size: 16px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .buttonselengkapnya:hover {
-        background-color: #159fc8;
-        transform: scale(1.05);
-      }
 
       .buttonselengkapnya:disabled {
         opacity: 0.6;
@@ -407,9 +466,9 @@
           padding: 60px 30px;
         }
         .hero-image {
-          max-width: 300px;
+          max-width: 100%;
           margin: 0 auto;
-          margin-top: 40px;
+          margin-top: 5%;
         }
         header {
           padding: 15px 20px;
@@ -470,6 +529,98 @@
         }
         100% {
           background-position: 0% 50%;
+        }
+      }
+      @media (max-width: 768px) {
+        .hero {
+          flex-direction: column;
+          text-align: center;
+          padding: 40px 20px;
+        }
+
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .hero-image {
+          margin-top: 30px;
+        }
+
+        .buttonselengkapnya {
+          width: 100%;
+          max-width: 300px;
+        }
+      }
+      @media (max-width: 600px) {
+        .logo-text {
+          font-size: 20px;
+        }
+
+        .service-items,
+        .project-items {
+          grid-template-columns: 1fr;
+          gap: 20px;
+          padding: 0 10px;
+        }
+
+        .card {
+          padding: 20px 16px;
+        }
+
+        .card h3 {
+          font-size: 18px;
+        }
+
+        .card p {
+          font-size: 14px;
+        }
+
+        .wa-button,
+        .git-button,
+        .ig-button {
+          font-size: 14px;
+          padding: 12px 20px;
+          margin-left: 0;
+          flex-wrap: nowrap;
+        }
+
+        .wa-icon,
+        .git-icon,
+        .ig-icon {
+          width: 24px;
+          height: 24px;
+        }
+        .contact-buttons {
+          flex-direction: column;
+          align-items: center;
+          gap: 14px;
+          padding: 10px 16px;
+        }
+
+        .wa-button,
+        .ig-button,
+        .git-button {
+          width: 100%;
+          max-width: 320px;
+          justify-content: center;
+          font-size: 1rem;
+          padding: 12px 20px;
+        }
+
+        .wa-icon,
+        .ig-icon,
+        .git-icon {
+          width: 24px;
+          height: 24px;
+        }
+
+        footer {
+          font-size: 12px;
+          padding: 20px;
         }
       }
     </style>
@@ -669,46 +820,46 @@
       <section id="contact" class="contact" aria-label="Kontak Kami">
         <h2>Hubungi Kami</h2>
 
-        <!-- Tombol WhatsApp -->
-        <button
-          class="wa-button"
-          onclick="window.open('https://wa.me/6287750704842?text=Halo%20JasCod!', '_blank')"
-          aria-label="Hubungi via WhatsApp"
-        >
-          <img
-            class="wa-icon"
-            src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-            alt="Ikon WhatsApp"
-          />
-          Chat WhatsApp
-        </button>
+        <div class="contact-buttons">
+          <button
+            class="wa-button"
+            onclick="window.open('https://wa.me/6287750704842?text=Halo%20JasCod!', '_blank')"
+            aria-label="Hubungi via WhatsApp"
+          >
+            <img
+              class="wa-icon"
+              src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+              alt="Ikon WhatsApp"
+            />
+            Chat WhatsApp
+          </button>
 
-        <!-- Tombol Instagram -->
-        <button
-          class="ig-button"
-          onclick="window.open('https://www.instagram.com/nan.yattaaaa', '_blank')"
-          aria-label="Kunjungi Instagram"
-        >
-          <img
-            class="ig-icon"
-            src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
-            alt="Ikon Instagram"
-          />
-          Kunjungi Instagram
-        </button>
+          <button
+            class="ig-button"
+            onclick="window.open('https://www.instagram.com/nan.yattaaaa', '_blank')"
+            aria-label="Kunjungi Instagram"
+          >
+            <img
+              class="ig-icon"
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+              alt="Ikon Instagram"
+            />
+            Kunjungi Instagram
+          </button>
 
-        <button
-          class="git-button"
-          onclick="window.open('https://github.com/AnantaR07', '_blank')"
-          aria-label="Lihat Proyek di GitHub"
-        >
-          <img
-            class="git-icon"
-            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
-            alt="Ikon GitHub"
-          />
-          Lihat GitHub
-        </button>
+          <button
+            class="git-button"
+            onclick="window.open('https://github.com/AnantaR07', '_blank')"
+            aria-label="Lihat Proyek di GitHub"
+          >
+            <img
+              class="git-icon"
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+              alt="Ikon GitHub"
+            />
+            Lihat GitHub
+          </button>
+        </div>
       </section>
     </main>
 
